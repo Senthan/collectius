@@ -140,10 +140,19 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
     public function showLoginForm()
     {
         return view('auth.login');
     }
+
+    /**
+     * @param UserLoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function login(UserLoginRequest $request)
     {
@@ -186,6 +195,10 @@ class UserController extends Controller
         return redirect('login');
         
     }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     public function logout()
     {
