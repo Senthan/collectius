@@ -8,6 +8,7 @@ use App\Repositories\RoleRepository;
 use App\Http\Requests\UserDestroyRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\User;
 
 
@@ -139,13 +140,56 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    // public function showLoginForm()
-    // {
-    //     return view('auth.login');
-    // }
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
 
-    // public function login()
-    // {
+    public function login(UserLoginRequest $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        
 
-    // }
+        if(auth()->attempt(['email' => $email, 'password' => $password])) {
+            session()->put('loginAttempts', 1);
+            return redirect()->intended();
+        }
+        
+        $loginAttempts = 1;
+
+        if (session()->has('loginAttempts')) 
+        {
+            $loginAttempts = session()->get('loginAttempts');
+            if ($loginAttempts > 3)
+            {
+                $message = 'Please contact the administrator';
+
+                $errors = ['email' => $message];
+
+                if ($request->expectsJson()) {
+                    return response()->json($errors, 423);
+                }
+
+                return redirect()->back()
+                    ->withInput($request->only('email', 'remember'))
+                    ->withErrors($errors);
+            }
+        } else 
+        {
+            session()->put('loginAttempts', $loginAttempts);
+        }
+        
+        session()->put('loginAttempts', $loginAttempts + 1);
+
+        auth()->logout();
+        return redirect('login');
+        
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect('login');
+    }
 }
