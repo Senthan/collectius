@@ -1,0 +1,28 @@
+{
+  "name": "Senthan Shanmugaratnam",
+  "description": "",
+  "main": "",
+  "authors": [
+    "S.Senthan <senthaneng@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#^2.2.9",
+    "semantic-ui-dropdown": "^2.2.9",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "^4.*",
+    "jquery": "~2.1.4",
+    "angular": "1.4.3",
+    "angular-ui-grid": "~3.0.7",
+    "jquery-ui": "^1.12.1",
+    "toastr": "^2.1.3"
+  }
+}
