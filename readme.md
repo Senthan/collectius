@@ -12,7 +12,7 @@ sudo chmod  -R 777  storage/
 
 sudo chmod  -R 777  bootstrap/cache/
 
-php artisan migrate:refresh --seed –force
+php artisan migrate:refresh --seed –-force
 
 php artisan role:sync
 
